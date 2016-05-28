@@ -7,3 +7,9 @@ reportlab==3.3.0
 six==1.10.0
 wheel==0.24.0
 xhtml2pdf==0.0.6
+dj-database-url==0.2.2
+dj-static==0.0.5
+gunicorn==18.0
+psycopg2==2.5.2
+static==1.0.2
+wsgiref==0.1.2

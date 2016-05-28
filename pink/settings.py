@@ -76,18 +76,15 @@ WSGI_APPLICATION = 'pink.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-import urlparse
-db_url = urlparse.urlparse(os.environ.get('OPENSHIFT_MYSQL_DB_URL'))
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': os.environ['OPENSHIFT_APP_NAME'],
-        'USER': db_url.username,
-        'PASSWORD': db_url.password,
-        'HOST': db_url.hostname,
-        'PORT': db_url.port,
+        'NAME': 'd2cnt41dukvsuu',
+        'USER': 'fcakegwgxycppd',
+        'PASSWORD': 'sq9qw5kwG9YNwqOWzRR-qcZSgw',
+        'HOST': 'ec2-54-225-246-33.compute-1.amazonaws.com',
+        'PORT': '   5432',
     }
 }
 
@@ -144,3 +141,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER ='pinkperfumesprueba@gmail.com'
 EMAIL_HOST_PASSWORD = 'pinkperfume'
 EMAIL_PORT = 587
+
+# Cargue para heroku
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

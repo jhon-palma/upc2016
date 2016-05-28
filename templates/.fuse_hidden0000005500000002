@@ -1,0 +1,55 @@
+{% extends 'template.html' %}
+{%  block content %}
+
+<div class="container">
+<div class="jumbotron dudas">
+<div class="row">
+        <div class="col-md-9">
+        <h1>Dudas e inquietudes</h1>
+        <p>Tienes alguna duda e inquietud contactanos y en breve nuestro equipo se comunicara contigo. Tambien puedes escribirnos a nuestro Whatsapp.</p>
+        </div>
+        <div class="col-md-3">
+		<img class="img-responsive" id="dudas" src="static/images/dudas.png">
+              </div>
+              </div>
+              </div>
+              </div>
+              {% if error %}
+      <div class="alert alert-danger"> {{ error }} </div>
+    {% endif %}
+    {% if success %}
+      <div class="alert alert-success"> {{ alert }}</div>
+    {% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+			<div class="ibody">
+				<h1>Contactenos</h1>
+				<div class="fcontacto">
+					<form method="POST" name="fcontacto" id="fcontacto" action="">
+					{% csrf_token %}
+						<label>Nombre:</label>
+						<input type="text" name="name" id="name" class="form-control">
+						<label>Email:</label>
+						<input type="email" name="email" id="email" class="form-control">
+						<label>Teléfono:</label>
+						<input type="tel" name="telefono" id="telefono" class="form-control">	
+						<label>Asunto:</label>
+						<input type="text" name="asunto" id="asunto" class="form-control">
+						<label>Mensaje:</label>
+						<textarea type="text" name="mensaje" id="mensaje" cols="30" rows="10" class="form-control" resize="none"></textarea> 
+						<input type="submit" class"btn btn-info" id="contact" value="Enviar">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<!---Bootstrap CSS: Formulario de Contacto (Parte 1)-->
+	<div class="row">
+		<div class="col-md-6 col-md-offset-4">
+			<img src="static/images/icons/WhatsApp3.png" class="img-responsive" >
+		</div>
+	</div>
+</div>
+{% endblock %}		
