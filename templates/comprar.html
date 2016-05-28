@@ -1,0 +1,79 @@
+{% extends 'template.html' %}
+{%  block content %}
+{% load humanize %} 
+ <div class="container main-container">
+        <div class="row">
+        	<div class="col-lg-3 col-md-3 col-sm-12">
+				{% if producto %}
+				<div class="no-padding">
+            		<span class="title">TU PRODUCTO</span>
+            	</div>
+        		
+                <div class="thumbnail col-lg-12 col-md-12 col-sm-6 text-center">
+                	<img src="{{ producto.imagen }}" class="img-responsive img" alt="Perfumes Pink">
+                    <div class="caption prod-caption">
+                        <h2><a href="detail.html">{{producto.nombre}}</a></h2>
+                        <p><h5>{{ producto.presentacion }}</h5></p>
+                        <p>
+                    	<div class="btn-group">
+                        	<span class="text-muted precio">${{ producto.precio|floatformat:"0"|intcomma}}</span>
+                    	</div>
+                        </p>
+                    </div>
+                </div>
+		            
+			</div>
+				<!-- End RECENT PRODUCT -->
+			
+        	<div class="clearfix visible-sm"></div>
+			<div class="col-lg-9 col-md-9 col-sm-12">
+        		<div class="col-lg-12 col-sm-12">
+            		<span class="title">CONFIRMA TU COMPRA</span>
+            	</div>
+	            <div class="col-lg-12 col-sm-12 hero-feature">
+                    <form method="POST" name="fcontacto" id="comprar" action="">
+                    {% csrf_token %}
+                        <label>Nombre:</label>
+						<input type="text" name="name" id="name" class="form-control">
+						<label>Email:</label>
+						<input type="email" name="email" id="email" class="form-control">
+						<label>Teléfono:</label>
+						<input type="tel" name="telefono" id="telefono" class="form-control">	
+						<label>Dirección:</label>
+						<input type="text" name="direccion" id="direccion" class="form-control">	
+    					<input type="hidden" name="producto" value={{producto.nombre}}>
+                        <input type="hidden" name="precio" value={{producto.precio}}> 	    					
+                    </div>
+                    
+					<div class="btn-group btns-cart">
+						<button type="submit" id="contact" class="btn btn-primary">Confirmar</button>
+					</div>
+
+	            </div>
+        	</div></div>
+            {% endif %} 
+        	<!-- End Cart -->
+<div class="container">
+  <p></p>
+  <div class="alert alert-info" role="alert">
+      <p class="alert-link">Puedes realizar el pago con:</p>
+  </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <img href="#"class="img-responsive imgn"src="static/images/visa.png">
+                </div>
+                <div class="col-md-3">
+                    <img href="#"class="img-responsive imgn"src="static/images/mastercard.png">
+                </div>
+                <div class="col-md-3">
+                    <img href="#"class="img-responsive imgn"src="static/images/pagatodo.png">
+                </div>
+                <div class="col-md-3">
+                    <img href="#"class="img-responsive imgn"src="static/images/efecty.jpg">
+                </div>
+            </div>
+
+</div><!--container-->
+
+
+{% endblock %}		

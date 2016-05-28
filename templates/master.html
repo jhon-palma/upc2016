@@ -1,0 +1,145 @@
+{% extends 'template.html' %}
+{%  block content %}
+<div id="container">
+	<div id="page-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+			<div class="col-lg-12">
+				<br><br>
+				{% if error %}
+				<div class="alert alert-danger">{{ error}}</div>
+				{% endif %}
+					<form method="post" action="" id="formPrincipal" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="forym-group">
+						<label for="sel1">Operación a realizar:</label>
+						<select class="form-control" name="sel1" id="sel1" required>
+							<option value="@">Seleccione...</option>
+							<option value="mr" name="mr">Crear marca</option>
+							<option value="vf" name="vf">Crear Perfume</option>
+							<option value="rc" name="rc">Modificar Perfume</option>
+							<option value="un" name="un">Eliminar perfume</option>
+						</select>
+					</div>
+			        <div style ="display:none;" id="multiple">
+						<div class="form-group">
+			            	<fieldset class="module aligned ">
+			    				<div class="form-row field-nombre">
+                					<div>
+                    					<label class="required" for="id_nombre">Nombre:</label>
+                            			<input class="form-control" id="id_nombre" name="nombre" type="text" value="">
+                					</div>
+        						</div>
+        						<div class="form-row field-imagen">
+        							<div>
+                        				<label class="required" for="id_imagen">Imagen:</label>
+                        				<input id="id_imagen" name="imagen" type="file">
+                    				</div>
+                				</div>
+            					<div class="form-row field-generoPrincipal">
+									<div>
+										<label class="required" for="id_generoPrincipal">GeneroPrincipal:</label>
+										<select id="id_generoPrincipal" name="generoPrincipal">
+											<option value="" selected="selected">---------</option>
+											<option value="M">Ellos</option>
+											<option value="F">Ellas</option>
+											<option value="N">Ninguno</option>
+										</select>
+									</div>
+            					</div>
+    							<div class="form-row field-generoSecundario">
+    								<div>
+	    								<label class="required" for="id_generoSecundario">GeneroSecundario:</label>
+	    								<select id="id_generoSecundario" name="generoSecundario">
+											<option value="" selected="selected">---------</option>
+											<option value="M">Ellos</option>
+											<option value="F">Ellas</option>
+											<option value="N">Ninguno</option>
+										</select>
+									</div>
+            					</div>    
+							</fieldset>
+          				</div>
+          			</div>
+        <div style ="display:none;" id="falsoverdaro" name="falsoverdaro">
+          <div class="form-group">
+            <label>Escribe Algo</label>
+            <textarea class="form-control" rows="3" name="txtpregunta"></textarea>
+					</div>
+          <select class="form-control" name="correcta" id="sel1">
+            <option value="@">Seleccione la respuesta correcta</option>
+            <option value="verdadero" name="verdadero">verdadero</option>
+            <option value="falso" name="falso">falso</option>
+          </select>
+				</div>
+        <div style="display:none;" id="respuestacorta">
+          <div class="form-group">
+            <label>Escribe Algo</label>
+            <textarea class="form-control" rows="3" name="txtpregunta"></textarea>
+					</div>
+        </div>
+          <!--UNIR-->
+          <div style="display:none;" id="unir">
+            <div class="row">
+              <div class="col-xs-6 col-sm-3">
+                <form class="form-inline">
+                  <div class="form-group">
+                    <label for="exampleInputName2">A</label>
+                    <input type="text" class="form-control" id="exampleInputName2" placeholder=" ">
+                  </div>
+              </div>
+                  <div class="col-xs-6 col-sm-3">
+                  <div class="form-group">
+                    <label for="exampleInputEmail2">1</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder=" ">
+                  </div>
+                </form>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-3">
+              <form >
+                <div class="form-group">
+                  <label for="exampleInputName2">A</label>
+                  <input type="text" class="form-control" id="exampleInputName2" placeholder=" ">
+                </div>
+            </div>
+                <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label for="exampleInputEmail2">1</label>
+                  <input type="email" class="form-control" id="exampleInputEmail2" placeholder=" ">
+                </div>
+              </form>
+            </div>
+        </div>
+			  </div>
+      </div>
+      <input type="submit" id="submit" onclick="javascript:document.getElementById('formPrincipal').submit();"class="btn btn-primary" />
+    </form>
+		</div>
+	</div>
+</div>
+	<script>
+		document.getElementById("sel1").onchange = mostrar;
+		function mostrar()
+			{
+				document.getElementById("multiple").style.display = "none";
+				document.getElementById("falsoverdaro").style.display = "none";
+        document.getElementById("respuestacorta").style.display = "none";
+        document.getElementById("unir").style.display = "none";
+
+				if(document.getElementById("sel1").value == "mr")
+					document.getElementById("multiple").style.display = "block";
+
+          else if(document.getElementById("sel1").value == "vf")
+					document.getElementById("falsoverdaro").style.display = "block";
+
+            else if (document.getElementById("sel1").value == "rc")
+            document.getElementById("respuestacorta").style.display = "block";
+
+              else if (document.getElementById("sel1").value == "un")
+              document.getElementById("unir").style.display = "block";
+			}
+  </script>
+
+{% endblock %}		

@@ -1,0 +1,73 @@
+{% extends 'template.html' %}
+
+{%  block content %}
+{% load humanize %} 
+<div class="container marcas">
+	<div class="alert alert-success" role="alert">
+		{% if lista.count == 1 %}
+		<p class="alert-link">Resultado encontrado por "{{ filtro }}"  {{ lista.count }} disponible</p>
+
+		{% elif lista.count > 1 %}
+		<p class="alert-link"> {{ lista.Page.object_list }} Resultados encontrados </p>
+		{% else %}
+		<p class="alert-link">No se encontraron resultados</p>
+		{% endif %}
+	</div>
+	{% if detalle == True %}
+		<div class="row placeholders">
+	       {% for perfume in lista %}
+		        <div class="col-md-3 placeholder">
+		            <img src="{{ perfume.imagen }}" class="img-responsive img" alt="Perfumes Pink"> 
+		            <h3 >{{ perfume.nombre }}</h3>
+		            <span class="text-muted presentacion">{{ perfume.presentacion }}</span><br>	
+		            <span class="text-muted precio">
+
+		            ${{ perfume.precio|floatformat:"0"|intcomma }} </span><a href="comprar?filter={{ perfume.id }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Comprar</a>
+		        </div>
+	        {% endfor %}
+	    </div><!-- row -->
+     {% else%}
+	     <div class="row placeholders">
+	       {% for marca in lista %}
+		        <div class="col-md-3 placeholder">
+		        	<a href="search?filter={{ filtro }}&marca={{ marca.id }}">
+		            <img src="{{ marca.imagen }}" class="img-responsive img" alt="Perfumes Pink">        
+		        </div>
+	        {% endfor %}
+	    </div><!-- row -->
+    {% endif %}
+	<div class="pagination-centered">
+		<nav>
+			<ul class="pagination">
+				<li>
+					{% if marcas.has_previous %}
+						<a href="{% url 'search' %}?filter={{filtro}}&page={{ marcas.previous_page_number }}" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						</a>
+					{% else %}
+						<a href="{% url 'search' %}?filter={{filtro}}&page=1" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						</a>
+					{% endif %}
+				</li>
+				{% for page in paginador.page_range %}
+					<li><a href="{% url 'search' %}?filter={{filtro}}&page={{ page }}">{{ page}}</a></li>
+				{% endfor %}
+				<li>
+					{% if marcas.has_next %}
+						<a href="{% url 'search' %}?filter={{filtro}}&page={{ marcas.next_page_number }}" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						</a>
+					{% else %}
+						<a href="{% url 'search' %}?filter={{filtro}}&page={{ paginador.num_pages }}" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						</a>
+					{% endif%}
+				</li>
+			</ul>
+		</nav>
+	</div><!-- container -->
+
+</div>
+
+{% endblock %}
