@@ -18,13 +18,18 @@
 							<option value="mr" name="mr">Crear marca</option>
 							<option value="vf" name="vf">Crear Perfume</option>
 							<option value="rc" name="rc">Modificar Perfume</option>
-							<option value="un" name="un">Eliminar perfume</option>
 						</select>
 					</div>
 			        <div style ="display:none;" id="multiple">
-						<div class="form-group">
+						{% csrf_token %}
+            <div class="form-group">
+            {% csrf_token %}
 			            	<fieldset class="module aligned ">
+                  <div class="form-row field-tipoF">
+                    <input class="form-control" id="id_nombre" name="tipoF" type="hidden" value="crema">
+                  </div>
 			    				<div class="form-row field-nombre">
+
                 					<div>
                     					<label class="required" for="id_nombre">Nombre:</label>
                             			<input class="form-control" id="id_nombre" name="nombre" type="text" value="">
@@ -61,61 +66,113 @@
 							</fieldset>
           				</div>
           			</div>
-        <div style ="display:none;" id="falsoverdaro" name="falsoverdaro">
+
+        <div style ="display:none;" id="crearPerfume" name="crearPerfume">
           <div class="form-group">
-            <label>Escribe Algo</label>
-            <textarea class="form-control" rows="3" name="txtpregunta"></textarea>
+            
+{% csrf_token %}
+                    <fieldset class="module aligned ">
+                    <div class="form-row field-tipoF">
+                    <input class="form-control" id="id_nombre" name="tipoF" type="hidden" value="crepe">
+                  </div>
+                  <div class="form-row field-nombre">
+                          <div>
+                              <label class="required" for="id_nombre">Nombre:</label>
+                                  <input class="form-control" id="id_nombre" name="nombreP" type="text" value="">
+                          </div>
+                    </div>
+                    <div class="form-group"><h4>
+                             <select class="form-control" id="ciud" name="marcaP">
+                                    <option value="0">Marca</option>
+                                    {% for marka in markas %}
+                                        <option value="{{ marka.id }}">{{ marka.nombre }}</option>
+                                    {% endfor %}
+                            </select></h4>
+                        </div>
+                    <div class="form-row field-precio">
+                          <div>
+                              <label class="required" for="id_precio">Precio:</label>
+                                  <input class="form-control" id="id_precio" name="precioP" type="text" value="">
+                          </div>
+                    </div>
+                    <div class="form-row field-presentacion">
+                          <div>
+                              <label class="required" for="id_precio">Presentación:</label>
+                                  <input class="form-control" id="id_presentacion" name="presentacionP" type="text" value="">
+                          </div>
+                    </div>
+                    <div class="form-row field-imagen">
+                      <div>
+                                <label class="required" for="id_imagen">Imagen:</label>
+                                <input id="id_imagen" name="imagenP" type="file">
+                            </div>
+                        </div>
+                      <div class="form-row field-generoPrincipal">
+                  <div>
+                    <label class="required" for="id_generoPrincipal">GeneroPrincipal:</label>
+                    <select id="id_generoPrincipal" name="generoPrincipalP">
+                      <option value="" selected="selected">---------</option>
+                      <option value="M">Ellos</option>
+                      <option value="F">Ellas</option>
+                      <option value="N">Ninguno</option>
+                    </select>
+                  </div>
+                      </div>
+                  <div class="form-row field-generoSecundario">
+                    <div>
+                      <label class="required" for="id_generoSecundario">GeneroSecundario:</label>
+                      <select id="id_generoSecundario" name="generoSecundarioP">
+                      <option value="" selected="selected">---------</option>
+                      <option value="M">Ellos</option>
+                      <option value="F">Ellas</option>
+                      <option value="N">Ninguno</option>
+                    </select>
+                  </div>
+                      </div>    
+              </fieldset>
+
+
+
+
+
+
+
+
+
+
+
 					</div>
-          <select class="form-control" name="correcta" id="sel1">
-            <option value="@">Seleccione la respuesta correcta</option>
-            <option value="verdadero" name="verdadero">verdadero</option>
-            <option value="falso" name="falso">falso</option>
-          </select>
+          
 				</div>
-        <div style="display:none;" id="respuestacorta">
+        <div style="display:none;" id="modificaperfume">
           <div class="form-group">
-            <label>Escribe Algo</label>
-            <textarea class="form-control" rows="3" name="txtpregunta"></textarea>
+            
+<div class="form-group"><h4>
+  <select class="form-control" id="perfumeM" name="perfumeM">
+      <option value="0">Perfume</option>
+    {% for perfume in perfumes %}
+      <option value="{{ perfume.id }}">{{ perfume.nombre }}</option>
+    {% endfor %}
+  </select></h4>
+</div>
+<div class="form-row field-precio">
+  <div>
+    <label class="required" for="id_precio">Precio:</label>
+    <input class="form-control" id="id_precio" name="precioM" type="text" value="">
+  </div>
+</div>
+                    
+
+
+
+
 					</div>
         </div>
           <!--UNIR-->
-          <div style="display:none;" id="unir">
-            <div class="row">
-              <div class="col-xs-6 col-sm-3">
-                <form class="form-inline">
-                  <div class="form-group">
-                    <label for="exampleInputName2">A</label>
-                    <input type="text" class="form-control" id="exampleInputName2" placeholder=" ">
-                  </div>
-              </div>
-                  <div class="col-xs-6 col-sm-3">
-                  <div class="form-group">
-                    <label for="exampleInputEmail2">1</label>
-                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder=" ">
-                  </div>
-                </form>
-              </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-sm-3">
-              <form >
-                <div class="form-group">
-                  <label for="exampleInputName2">A</label>
-                  <input type="text" class="form-control" id="exampleInputName2" placeholder=" ">
-                </div>
-            </div>
-                <div class="col-xs-6 col-sm-3">
-                <div class="form-group">
-                  <label for="exampleInputEmail2">1</label>
-                  <input type="email" class="form-control" id="exampleInputEmail2" placeholder=" ">
-                </div>
-              </form>
-            </div>
-        </div>
-			  </div>
-      </div>
+          
       <input type="submit" id="submit" onclick="javascript:document.getElementById('formPrincipal').submit();"class="btn btn-primary" />
-    </form>
+      </div>
+   </div>
 		</div>
 	</div>
 </div>
@@ -124,21 +181,19 @@
 		function mostrar()
 			{
 				document.getElementById("multiple").style.display = "none";
-				document.getElementById("falsoverdaro").style.display = "none";
-        document.getElementById("respuestacorta").style.display = "none";
-        document.getElementById("unir").style.display = "none";
+				document.getElementById("crearPerfume").style.display = "none";
+        document.getElementById("modificaperfume").style.display = "none";
 
 				if(document.getElementById("sel1").value == "mr")
 					document.getElementById("multiple").style.display = "block";
 
           else if(document.getElementById("sel1").value == "vf")
-					document.getElementById("falsoverdaro").style.display = "block";
+					document.getElementById("crearPerfume").style.display = "block";
 
             else if (document.getElementById("sel1").value == "rc")
-            document.getElementById("respuestacorta").style.display = "block";
+            document.getElementById("modificaperfume").style.display = "block";
 
-              else if (document.getElementById("sel1").value == "un")
-              document.getElementById("unir").style.display = "block";
+      
 			}
   </script>
 

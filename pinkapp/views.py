@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
 from django.template import RequestContext
@@ -171,6 +172,41 @@ def login(request):
 
     return render_to_response('login.html', context_instance=RequestContext(request))
 
+@login_required(login_url="/login") 
 def master(request):
-    return render_to_response('master.html')
+    marcas = marca.objects.all()
+    perfumes = perfume.objects.all()
+    InfoFormulario= {'markas': marcas, 'perfumes': perfumes }
+    
+    if request.method == 'POST':
+        if request.POST['sel1'] == 'mr':
+            marka = marca()
+            marka.nombre = request.POST['nombre']
+            marka.imagen = request.FILES['imagen']
+            marka.generoPrincipal = request.POST['generoPrincipal']
+            marka.generoSecundario = request.POST['generoSecundario']
+            marka.save()
+            return render_to_response('master.html', InfoFormulario, context_instance=RequestContext(request))
+        if request.POST['sel1'] == 'vf':
+            perfumes = perfume()
+            perfumes.nombre = request.POST['nombreP']
+            perfumes.precio = request.POST['precioP']
+            perfumes.imagen = request.FILES['imagenP']
+            perfumes.presentacion = request.POST['presentacionP']
+            perfumes.marca_id = request.POST['marcaP']
+            perfumes.generoPrincipal = request.POST['generoPrincipalP']
+            perfumes.generoSecundario = request.POST['generoSecundarioP']
+            perfumes.save()
+            return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
+
+        if request.POST['sel1'] == 'rc':
+
+            md = perfume.objects.get( id = request.perfume.id )
+            md.precio  = request.POST['precioM']
+            md.save()
+        
+            return HttpResponseRedirect('login')
+            #return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
+    else:
+            return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
     
