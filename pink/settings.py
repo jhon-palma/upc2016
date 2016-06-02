@@ -75,8 +75,9 @@ WSGI_APPLICATION = 'pink.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
+#modo produccion
 DATABASES = {
+    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'd2cnt41dukvsuu',
@@ -85,8 +86,8 @@ DATABASES = {
         'HOST': 'ec2-54-225-246-33.compute-1.amazonaws.com',
         'PORT': '   5432',
     }
-#}
-#
+}
+#Modo desarrollo
 #DATABASES = {
  #   'default': {
   #      'ENGINE': 'django.db.backends.sqlite3',

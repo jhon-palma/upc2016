@@ -16,6 +16,7 @@ https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pink.settings")
 
 #application = get_wsgi_application()
+
 #modo produccion
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pink.settings")
