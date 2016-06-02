@@ -85,7 +85,7 @@ DATABASES = {
         'HOST': 'ec2-54-225-246-33.compute-1.amazonaws.com',
         'PORT': '   5432',
     }
-}
+#}
 #
 #DATABASES = {
  #   'default': {
