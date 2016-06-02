@@ -205,8 +205,8 @@ def master(request):
             md.precio  = request.POST['precioM']
             md.save()
         
-            return HttpResponseRedirect('login')
-            #return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
+            
+            return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
     else:
             return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
     
