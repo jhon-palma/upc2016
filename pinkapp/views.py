@@ -175,7 +175,7 @@ def login(request):
 
     return render_to_response('login.html', context_instance=RequestContext(request))
 
-@login_required(login_url="/login") 
+
 def master(request):
     marcas = marca.objects.all()
     perfumes = perfume.objects.all()
@@ -212,7 +212,7 @@ def master(request):
     else:
             return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
 
-@login_required(login_url="/login")   
+
 def registroUsuario(request):
     error = False
 
@@ -242,7 +242,7 @@ def registroUsuario(request):
     # Agregar el usuario a la base de datos
     return render_to_response('usuario.html', context_instance=RequestContext(request))
 
-@login_required(login_url="/login")
+
 def indexMaster(request):
     return render_to_response('indexMaster.html')
 
