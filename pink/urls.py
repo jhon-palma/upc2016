@@ -20,12 +20,15 @@ from pinkapp.views import *
 urlpatterns = [
     url(r'^$', index , name='index'),
     url(r'^marcas$', marcas , name='marcas'),
+    url(r'^indexMaster$', indexMaster , name='indexMaster'),
     url(r'^search$', search , name='search'),
     url(r'^contacto$', contacto , name='contacto'),
     url(r'^comprar$', comprar , name='comprar'),
     url(r'^compraExitosa$', compraExitosa , name='compraExitosa'),
     url(r'^detalle$', verpdf , name='detalle'),
     url(r'^login$', login , name='login'),
+    url(r'^logout$', logout, name='logout'),
     url(r'^master$', master , name='master'),
+    url(r'^usuario$', registroUsuario, name='registroUsuario'),
     url(r'^admin/', admin.site.urls),
 ]

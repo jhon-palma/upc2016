@@ -6,11 +6,14 @@ from django.template import RequestContext
 from .models import marca, perfume
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-from validators import FormContacto,FormLoginValidator
+from validators import FormContacto,FormLoginValidator,FormRegistroValidator
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
 from django.contrib import auth
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User, Group
+from .models import Usuario
 
 def index(request):
 	return render_to_response('index.html')
@@ -164,10 +167,10 @@ def login(request):
             usuario = request.POST['usuario']
             clave = request.POST['clave']
             auth.login(request, validator.acceso)  # Crear una sesion
-            return HttpResponseRedirect('master')
+            return HttpResponseRedirect('indexMaster')
 
         else:
-            return render_to_response('index.html', {'error': validator.getMessage()},
+            return render_to_response('indexMaster.html', {'error': validator.getMessage()},
                                       context_instance=RequestContext(request))
 
     return render_to_response('login.html', context_instance=RequestContext(request))
@@ -200,13 +203,50 @@ def master(request):
             return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
 
         if request.POST['sel1'] == 'rc':
-
-            md = perfume.objects.get( id = request.perfume.id )
-            md.precio  = request.POST['precioM']
-            md.save()
-        
+            
+            per = perfume.objects.get( request.POST[perfume.id])
+            per.precio = request.POST['precioM']
+            per.save()
             
             return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
     else:
             return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
-    
+
+@login_required(login_url="/login")   
+def registroUsuario(request):
+    error = False
+
+    if request.method == 'POST':
+
+        validator = FormRegistroValidator(request.POST)
+        validator.required = ['nombre', 'apellidos', 'cedula', 'email', 'password', 'perfil']
+
+        if validator.is_valid():
+            usuario = User()
+            usuario.first_name = request.POST['nombre']
+            usuario.last_name = request.POST['apellidos']
+            usuario.username = request.POST['cedula']
+            usuario.email = request.POST['email']
+            usuario.password = make_password(request.POST['password'])
+            tipo = request.POST['perfil']
+            #TODO: ENviar correo electronico para confirmar cuenta
+            usuario.is_active = True
+            perfil = Group.objects.get(id = tipo)
+            usuario.save()
+            usuario.groups.add(perfil)
+            usuario.save()
+            return render_to_response('usuario.html', {'success': True}, context_instance=RequestContext(request))
+        else:
+            return render_to_response('usuario.html', {'error': validator.getMessage()},
+                                  context_instance=RequestContext(request))
+    # Agregar el usuario a la base de datos
+    return render_to_response('usuario.html', context_instance=RequestContext(request))
+
+@login_required(login_url="/login")
+def indexMaster(request):
+    return render_to_response('indexMaster.html')
+
+@login_required(login_url="/login") # Protegemos la vista con el decorador del loguin para que solo pueda ingresar un usuario logueado
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect("/login")

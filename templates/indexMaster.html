@@ -1,0 +1,29 @@
+{% extends 'template.html' %}
+{% block content %}
+        <div class="container">
+             <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation"><a href="logout">Salir</a></li>
+                    
+                </ul>
+            </nav>  
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center"></div>
+                <a href="usuario">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <h1><span class="glyphicon glyphicon-user"></span></h1>
+                        <h3>Registro de usuarios</h3></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <a href="master">
+                        <h1><span class="glyphicon glyphicon-pencil"></span></h1>
+                        <h3>Modificar productos</h3></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center"></div>
+            </div>
+			</div>
+{% endblock %}

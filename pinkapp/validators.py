@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-#from .models import Usuario
+from .models import Usuario
 from django.contrib import auth
 
 class Validator(object):
