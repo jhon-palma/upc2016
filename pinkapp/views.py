@@ -59,20 +59,6 @@ def search(request):
         except PageNotAnInteger:
             raise Http404("Pagina no encontrada")
 
-
-        """
-        Manera de realizar consultar por un criterio a la vez
-        #buscamos por nombre del curso
-        cursos = Course.objects.filter( name__icontains =  request.GET['filter'] )
-        # Si no existen resultados buscarmos por precio
-        if not cursos.exists():
-            cursos = Course.objects.filter( price__icontains =  request.GET['filter'] )
-        # Si no existen resultados buscarmos por profesor
-        if not cursos.exists():
-            cursos = Course.objects.filter( teacher__name__icontains =  request.GET['filter'] )
-        filter = request.GET['filter']
-        """
-
     return render_to_response('search.html', {'lista': lista, 'detalle': detalle, 'paginador': paginador, 'filtro': filter  }, context_instance = RequestContext(request))
 
 #import pdb;     
@@ -95,7 +81,6 @@ def contacto(request):
             #contexto = Context({name})
             #html_content = htmly.render(contexto)
 
-            
             msg = EmailMultiAlternatives(ast, body , from_email ,  [ settings.EMAIL_HOST_USER])
             #msg.attach_alternative(html_content, "text/html")
             #msg.send()
@@ -170,12 +155,12 @@ def login(request):
             return HttpResponseRedirect('indexMaster')
 
         else:
-            return render_to_response('indexMaster.html', {'error': validator.getMessage()},
+            return render_to_response('login.html', {'error': validator.getMessage()},
                                       context_instance=RequestContext(request))
 
     return render_to_response('login.html', context_instance=RequestContext(request))
 
-
+@login_required(login_url="/login")
 def master(request):
     marcas = marca.objects.all()
     perfumes = perfume.objects.all()
@@ -212,7 +197,7 @@ def master(request):
     else:
             return render_to_response('master.html',InfoFormulario, context_instance=RequestContext(request))
 
-
+@login_required(login_url="/login")
 def registroUsuario(request):
     error = False
 
@@ -242,7 +227,7 @@ def registroUsuario(request):
     # Agregar el usuario a la base de datos
     return render_to_response('usuario.html', context_instance=RequestContext(request))
 
-
+@login_required(login_url="/login")
 def indexMaster(request):
     return render_to_response('indexMaster.html')
 
