@@ -109,6 +109,7 @@ def comprar(request):
             name = request.POST['name']
             from_email = request.POST['email']
             telefono = request.POST['telefono']
+            direccion = request.POST['direccion']
             producto = request.POST['producto']
             ast = "Venta Perfumes Pink/826"
             precio = request.POST['precio']
